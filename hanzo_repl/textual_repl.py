@@ -33,8 +33,8 @@ class StatusBar(Static):
     
     SPINNERS = ["✦", "✧", "✶", "✷", "✸", "✹", "✺", "✻", "✼", "✽"]
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.start_time = None
         self.spinner_index = 0
         
@@ -79,6 +79,9 @@ class ContextIndicator(Static):
     """Shows context usage."""
     
     context_percent = reactive(10)
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
     
     def render(self) -> Text:
         """Render context indicator."""
@@ -202,7 +205,7 @@ class HanzoTextualREPL(App):
         
         # Bottom bar
         with Horizontal(id="bottom-bar"):
-            yield Label("Bypassing Permissions", style="yellow")
+            yield Static(Text("Bypassing Permissions", style="yellow"))
             yield ContextIndicator(id="permissions")
     
     async def on_mount(self) -> None:

@@ -18,16 +18,9 @@ classifiers = [
     "Topic :: Software Development :: Testing",
 ]
 keywords = ["repl", "mcp", "ai", "llm", "hanzo"]
-requires-python = ">=3.11"
-
-[project.urls]
-Homepage = "https://hanzo.ai"
-Documentation = "https://github.com/hanzoai/repl"
-Repository = "https://github.com/hanzoai/repl"
-Issues = "https://github.com/hanzoai/repl/issues"
-
+requires-python = ">=3.12"
 dependencies = [
-    "hanzo-mcp @ file:///${PROJECT_ROOT}/../mcp",
+    "hanzo-mcp @ file:///Users/z/work/hanzo/mcp",
     "rich>=13.0.0",
     "prompt-toolkit>=3.0.0",
     "click>=8.0.0",
@@ -46,6 +39,12 @@ dependencies = [
     "sounddevice>=0.4.6",
     "numpy>=1.24.0",
 ]
+
+[project.urls]
+Homepage = "https://hanzo.ai"
+Documentation = "https://github.com/hanzoai/repl"
+Repository = "https://github.com/hanzoai/repl"
+Issues = "https://github.com/hanzoai/repl/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -79,3 +78,6 @@ python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
