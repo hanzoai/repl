@@ -38,6 +38,13 @@ dependencies = [
     "pygments>=2.17.0",
     "ipython>=8.0.0",
     "jupyter>=1.0.0",
+    "textual>=0.41.0",
+    "textual-dev>=1.2.0",
+    "speechrecognition>=3.10.0",
+    "pyttsx3>=2.90",
+    "pyaudio>=0.2.11",
+    "sounddevice>=0.4.6",
+    "numpy>=1.24.0",
 ]
 
 [project.optional-dependencies]
@@ -51,7 +58,9 @@ dev = [
 ]
 
 [project.scripts]
-hanzo-repl = "hanzo_repl.ipython_repl:main"
+hanzo-repl = "hanzo_repl.textual_repl:main"
+hanzo-repl-ipython = "hanzo_repl.ipython_repl:main"
+hanzo-repl-basic = "hanzo_repl.cli:main"
 
 [build-system]
 requires = ["hatchling"]
