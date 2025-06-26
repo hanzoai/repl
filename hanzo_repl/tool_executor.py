@@ -14,9 +14,9 @@ from .llm_client import LLMClient
 class ToolExecutor:
     """Execute MCP tools based on LLM requests."""
     
-    def __init__(self, mcp_server: HanzoMCPServer, llm_client: LLMClient):
+    def __init__(self, mcp_server: HanzoMCPServer, backend):
         self.mcp_server = mcp_server
-        self.llm_client = llm_client
+        self.backend = backend  # Can be LLMClient or BackendManager
         self.console = Console()
         self.conversation_history = []
         self.max_iterations = 10  # Prevent infinite loops
@@ -127,12 +127,30 @@ Available tool categories:
         while iterations < self.max_iterations:
             iterations += 1
             
-            # Call LLM with tools
-            response = await self.llm_client.chat(
-                messages=messages,
-                tools=tools,
-                tool_choice="auto"
-            )
+            # Call backend with tools
+            if hasattr(self.backend, 'chat'):
+                # Direct backend (BackendManager)
+                response_text = await self.backend.chat(
+                    messages[-1]["content"],  # Just the last user message
+                    tools=tools
+                )
+                # Create a response object that matches expected format
+                from types import SimpleNamespace
+                response = SimpleNamespace(
+                    choices=[SimpleNamespace(
+                        message=SimpleNamespace(
+                            content=response_text,
+                            tool_calls=None
+                        )
+                    )]
+                )
+            else:
+                # Legacy LLMClient
+                response = await self.backend.chat(
+                    messages=messages,
+                    tools=tools,
+                    tool_choice="auto"
+                )
             
             # Extract response
             message = response.choices[0].message

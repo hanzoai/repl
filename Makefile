@@ -38,20 +38,23 @@ install-python: ## Install Python using uv
 
 install: setup ## Install the REPL (alias for setup)
 
-dev: ## Start IPython REPL with MCP tools
-	@echo "$(BLUE)Starting Hanzo MCP REPL...$(NC)"
+dev: ## Start Hanzo REPL with beautiful TUI
+	@echo "$(BLUE)Starting Hanzo REPL...$(NC)"
 	@if [ ! -d ".venv" ]; then \
 		echo "$(YELLOW)Virtual environment not found. Running setup...$(NC)"; \
 		$(MAKE) setup; \
 	fi
-	@if [ -z "$$OPENAI_API_KEY" ] && [ -z "$$ANTHROPIC_API_KEY" ] && [ -z "$$GROQ_API_KEY" ]; then \
-		echo "$(YELLOW)Warning: No API keys detected!$(NC)"; \
-		echo "Set OPENAI_API_KEY, ANTHROPIC_API_KEY, or another provider key"; \
-		echo ""; \
-	fi
-	uv run python mcp_repl.py
+	@echo "$(GREEN)Tip: Press Ctrl+K for command palette, ? for help$(NC)"
+	uv run hanzo-repl
 
 repl: dev ## Start the REPL (alias for dev)
+
+dev-ipython: ## Start IPython REPL (classic interface)
+	@echo "$(BLUE)Starting IPython REPL...$(NC)"
+	@if [ ! -d ".venv" ]; then \
+		$(MAKE) setup; \
+	fi
+	uv run python mcp_repl.py
 
 ipython: ## Start IPython-based REPL with magic commands
 	@echo "$(BLUE)Starting IPython REPL...$(NC)"
