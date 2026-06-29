@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="repl" width="880"></p>
+
 # Hanzo REPL
 
 An intimate REPL environment for testing Hanzo's Model Context Protocol (MCP) tools and AI integration. Think of it as `rlwrap` meets Claude Code - direct access to MCP tools with IPython magic.
